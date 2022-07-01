@@ -124,7 +124,7 @@ const Home = () => {
 				let cent_val = Number(new_val.toString().split('.').pop());
 
 				if (cent_val && new_val % 1 !== 0) {
-					let c_val = cent_val / 10;
+					let c_val = cent_val;
 
 					setNewAmount({
 						inWords: capitalizeFirstLetter(
