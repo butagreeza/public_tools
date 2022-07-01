@@ -88,9 +88,9 @@ export default function NavBar() {
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position='static'>
 				<Toolbar>
-					<Link>
+					<Link href='https://byteltd.com'>
 						<Typography sx={{ fontWeight: 'bold', color: '#fff' }}>
-							BYTE CURRENCY
+							BYTE TOOLS
 						</Typography>
 					</Link>
 					<Box sx={{ flexGrow: 1 }} />
@@ -100,11 +100,6 @@ export default function NavBar() {
 							ticking={true}
 							style={{ fontSize: '2em' }}
 						/> */}
-						{/* <Link href='/contact'>
-							<Typography variant='h6' sx={{ color: '#fff' }}>
-								Contact Us
-							</Typography>
-						</Link> */}
 					</Box>
 					{/* <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
 						<IconButton
