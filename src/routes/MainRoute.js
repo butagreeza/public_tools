@@ -7,7 +7,6 @@ export default function MainRoute() {
 	return (
 		<Routes>
 			<Route index element={<Home />} />
-			<Route path='/contact' element={<Contact />} />
 		</Routes>
 	);
 }

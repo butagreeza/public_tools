@@ -8,9 +8,7 @@ import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MailIcon from '@mui/icons-material/Mail';
-// import MoreIcon from '@mui/icons-material/MoreVert';
 import { Link } from '@mui/material';
-// import Clock from 'react-live-clock';
 
 export default function NavBar() {
 	// const { userData, setLoggedIn } = useContext(GlobalContext);
@@ -24,9 +22,6 @@ export default function NavBar() {
 		setMobileMoreAnchorEl(null);
 	};
 
-	// const handleMobileMenuOpen = (event) => {
-	// 	setMobileMoreAnchorEl(event.currentTarget);
-	// };
 
 	const handleMenuClose = () => {
 		setAnchorEl(null);
@@ -54,7 +49,6 @@ export default function NavBar() {
 			}}
 			open={isMenuOpen}
 			onClose={handleMenuClose}>
-			{/* <MenuItem onClick={handleMenuClose}>{userData.name}</MenuItem> */}
 			<MenuItem onClick={handleLogout}>Sign Out</MenuItem>
 		</Menu>
 	);
@@ -95,23 +89,9 @@ export default function NavBar() {
 					</Link>
 					<Box sx={{ flexGrow: 1 }} />
 					<Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-						{/* <Clock
-							format={'HH:mm:ss'}
-							ticking={true}
-							style={{ fontSize: '2em' }}
-						/> */}
+						
 					</Box>
-					{/* <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-						<IconButton
-							size='large'
-							aria-label='show more'
-							aria-controls={mobileMenuId}
-							aria-haspopup='true'
-							onClick={handleMobileMenuOpen}
-							color='inherit'>
-							<MoreIcon />,
-						</IconButton>
-					</Box> */}
+					
 				</Toolbar>
 			</AppBar>
 			{renderMobileMenu}

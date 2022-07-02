@@ -13,17 +13,7 @@ import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import converter from 'number-to-words';
 import ConversionTable from '../../global/components/ConversionTable';
 import '../../global/styles/GlobalStyles.css';
-// let styles = {
-// 	title: {
-// 		display: 'flex',
-// 		justifyContent: 'center',
-// 		alignItems: 'center',
-// 		TypographyAlign: 'center',
-// 		verticalAlign: 'middle',
-// 		boxShadow: 2,
-// 		height: 60,
-// 	},
-// };
+
 const Home = () => {
 	const [amount, setAmount] = React.useState('');
 	const [newAmount, setNewAmount] = React.useState({
@@ -136,18 +126,6 @@ const Home = () => {
 				<div class='flex-item-left'>
 					<Grid item xs={8}>
 						<Paper elevation={3}>
-							{/* <Grid container spacing={7} sx={{ padding: 3 }}>
-							<Grid item xs={6}>
-								<Paper variant='outlined' sx={styles.title}>
-									<Typography variant='h4'>New Leones</Typography>
-								</Paper>
-							</Grid>
-							<Grid item xs={6}>
-								<Paper variant='outlined' sx={styles.title}>
-									<Typography variant='h4'>Old Leones</Typography>
-								</Paper>
-							</Grid>
-						</Grid> */}
 							<Grid container sx={{ padding: 3 }}>
 								<Grid item xs={12}>
 									<TextField
@@ -227,17 +205,6 @@ const Home = () => {
 																.toString()
 																.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
 														</Typography>
-														{/* <IconButton
-													icon={() => (
-														<Ionicons
-															name='copy-outline'
-															size={20}
-															color='grey'
-														/>
-													)}
-													size={20}
-													onPress={() => copyToClipboard()}
-												/> */}
 													</div>
 												)}
 
