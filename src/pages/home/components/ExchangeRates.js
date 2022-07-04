@@ -1,3 +1,4 @@
+/* eslint-disable no-extend-native */
 import React, { useState, useEffect } from 'react';
 import {
 	TextField,
@@ -25,10 +26,29 @@ const ExchangeRates = () => {
 		convert_from: 'SLL',
 		convert_to: 'USD',
 	});
-	const [convAmount, setConvAMount] = useState({ figure: '', words: '' });
+	const [convAmount, setConvAMount] = useState({
+		figure: '',
+		words: '',
+		currCode: '',
+	});
 	const [rate, setRate] = useState('');
 
 	const [currencies, setCurrencies] = useState([]);
+
+	const handleReset = () => {
+		setAmount('');
+		setRate('');
+		setConvAMount({
+			figure: '',
+			words: '',
+			currCode: '',
+		});
+		setCurrValues({
+			convert_from: 'SLL',
+			convert_to: 'USD',
+		});
+		return;
+	};
 
 	const onCurrencySwap = () => {
 		setCurrValues({
@@ -60,13 +80,13 @@ const ExchangeRates = () => {
 				.then((response) => {
 					let res = response.data;
 					if (res.success) {
-						console.log('RESSS', res);
 						let converted_val = res.result * Number(convAmount);
 						if (toCurrency === 'SLL') {
-							let new_leones = (converted_val / 1000).toFixed(6);
+							let new_leones = Number((converted_val / 1000).toFixed(6));
 							setConvAMount({
 								...convAmount,
-								figure: `${new_leones} ${toCurrency}`,
+								figure: new_leones,
+								currCode: toCurrency,
 								words:
 									new_leones < 1
 										? ''
@@ -75,14 +95,14 @@ const ExchangeRates = () => {
 										  ),
 							});
 							setRate(`1 ${fromCurrency} = ${res.result} ${toCurrency}`);
-							console.log('SSL', new_leones, 'OLD', converted_val);
 							return;
 						}
 						if (fromCurrency === 'SLL') {
-							let new_leones = (converted_val * 1000).toFixed(6);
+							let new_leones = Number((converted_val * 1000).toFixed(6));
 							setConvAMount({
 								...convAmount,
-								figure: `${new_leones} ${toCurrency}`,
+								figure: new_leones,
+								currCode: toCurrency,
 								words:
 									new_leones < 1
 										? ''
@@ -92,12 +112,13 @@ const ExchangeRates = () => {
 							});
 							setRate(`1 ${fromCurrency} = ${res.result} ${toCurrency}`);
 
-							console.log('SSL', new_leones);
 							return;
 						} else {
+							let other_currency = Number(converted_val.toFixed(6));
 							setConvAMount({
 								...convAmount,
-								figure: `${converted_val.toFixed(6)} ${toCurrency}`,
+								figure: other_currency,
+								currCode: toCurrency,
 								words:
 									converted_val < 1
 										? ''
@@ -106,22 +127,23 @@ const ExchangeRates = () => {
 										  ),
 							});
 							setRate(`1 ${fromCurrency} = ${res.result} ${toCurrency}`);
-
-							console.log('OTHER', converted_val);
 						}
 						return;
 					} else {
-						alert('Could not convert');
+						alert('Could not convert, check internet connection');
+						return;
 					}
 				})
 				.catch((e) => {
-					console.log('Got an error: ', e);
+					console.log('ERR', e);
+					alert('Could not convert, check internet connection');
+					return;
 				});
 		} catch {
-			alert('Could not convert');
+			alert('Could not convert, check internet connection');
+			return;
 		}
 	};
-
 	// console.log('CURR', currency_list.results);
 
 	useEffect(() => {
@@ -161,10 +183,20 @@ const ExchangeRates = () => {
 		return string.charAt(0).toUpperCase() + string.slice(1);
 	}
 
-	console.log(
-		'BABAM',
-		convAmount.figure.replace(/(?<!(\.\d*|^.{0}))(?=(\d{3})+(?!\d))/g, ','),
-	);
+	Number.prototype.commas = function () {
+		var s = '',
+			temp,
+			num = this.toString().split('.'),
+			n = num[0];
+		while (n.length > 3) {
+			temp = n.substring(n.length - 3);
+			s = ',' + temp + s;
+			n = n.slice(0, -3);
+		}
+		if (n) s = n + s;
+		if (num[1]) s += '.' + num[1];
+		return s;
+	};
 
 	return (
 		<Grid item xs={8}>
@@ -295,21 +327,34 @@ const ExchangeRates = () => {
 
 								<div style={{ flexDirection: 'row' }}>
 									<Typography style={{ color: '#000', fontSize: 30 }}>
-										{convAmount.figure.replace(
-											/(?<!(\.\d*|^.{0}))(?=(\d{3})+(?!\d))/g,
-											',',
-										)}
+										{convAmount.figure.commas()} {convAmount.currCode}
 									</Typography>
-									<Typography> {rate ? rate : ''}</Typography>
+									<Typography>- {rate ? rate : ''} -</Typography>
 								</div>
 
 								<Typography style={{ color: 'grey' }}>
 									{convAmount.words}
 								</Typography>
 							</div>
+							<Button
+								variant='contained'
+								color='error'
+								style={{ width: '30%', marginTop: 15 }}
+								onClick={() => handleReset()}>
+								Reset
+							</Button>
 						</Grid>
 					</>
 				)}
+			</Grid>
+			<Grid>
+				<Typography variant='h6' sx={{ fontWeight: 'bold' }}>
+					Note:
+				</Typography>
+				<Typography variant='body2'>
+					Currency data delivered are sourced from financial data providers and
+					banks, including the European Central Bank.
+				</Typography>
 			</Grid>
 		</Grid>
 	);
