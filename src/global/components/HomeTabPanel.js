@@ -69,10 +69,10 @@ export default function HomeTabPanel() {
 					axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
 					index={value}
 					onChangeIndex={handleChangeIndex}>
-					<TabPanel value={value} index={0} dir={theme.direction}>
+					<TabPanel value={value} index={value} dir={theme.direction}>
 						<LeonesConverter />
 					</TabPanel>
-					<TabPanel value={value} index={1} dir={theme.direction}>
+					<TabPanel value={value} index={value} dir={theme.direction}>
 						<ExchangeRates />
 					</TabPanel>
 				</SwipeableViews>
